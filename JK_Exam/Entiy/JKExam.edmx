@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="JK_ExamModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Exam_JK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar" MaxLength="500" />
+          <Property Name="ChooseA" Type="nvarchar" MaxLength="150" />
+          <Property Name="ChooseB" Type="nvarchar" MaxLength="150" />
+          <Property Name="ChooseC" Type="nvarchar" MaxLength="150" />
+          <Property Name="ChooseD" Type="nvarchar" MaxLength="150" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Prize_JK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="OpenID" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="WeChatName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Money" Type="money" Nullable="false" />
+          <Property Name="ChouTime" Type="datetime" Nullable="false" />
+          <Property Name="TimeStamps" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="User_JK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OpenID" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="HeadImg" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="WeChatName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsChou" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Prize_JK_Prize_JK">
+          <End Role="User_JK" Type="Self.User_JK" Multiplicity="1" />
+          <End Role="Prize_JK" Type="Self.Prize_JK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_JK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prize_JK">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JK_ExamModelStoreContainer">
+          <EntitySet Name="Exam_JK" EntityType="Self.Exam_JK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prize_JK" EntityType="Self.Prize_JK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_JK" EntityType="Self.User_JK" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Prize_JK_Prize_JK" Association="Self.FK_Prize_JK_Prize_JK">
+            <End Role="User_JK" EntitySet="User_JK" />
+            <End Role="Prize_JK" EntitySet="Prize_JK" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JK_ExamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Exam_JK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ChooseA" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ChooseB" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ChooseC" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ChooseD" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Prize_JK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="OpenID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WeChatName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Money" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ChouTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User_JK" Relationship="Self.FK_Prize_JK_Prize_JK" FromRole="Prize_JK" ToRole="User_JK" />
+          <Property Name="TimeStamps" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EntityType Name="User_JK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OpenID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HeadImg" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WeChatName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsChou" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Prize_JK" Relationship="Self.FK_Prize_JK_Prize_JK" FromRole="User_JK" ToRole="Prize_JK" />
+        </EntityType>
+        <Association Name="FK_Prize_JK_Prize_JK">
+          <End Role="User_JK" Type="Self.User_JK" Multiplicity="1" />
+          <End Role="Prize_JK" Type="Self.Prize_JK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_JK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prize_JK">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JK_ExamEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Exam_JK" EntityType="Self.Exam_JK" />
+          <EntitySet Name="Prize_JK" EntityType="Self.Prize_JK" />
+          <EntitySet Name="User_JK" EntityType="Self.User_JK" />
+          <AssociationSet Name="FK_Prize_JK_Prize_JK" Association="Self.FK_Prize_JK_Prize_JK">
+            <End Role="User_JK" EntitySet="User_JK" />
+            <End Role="Prize_JK" EntitySet="Prize_JK" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JK_ExamModelStoreContainer" CdmEntityContainer="JK_ExamEntities">
+          <EntitySetMapping Name="Exam_JK">
+            <EntityTypeMapping TypeName="JK_ExamModel.Exam_JK">
+              <MappingFragment StoreEntitySet="Exam_JK">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="ChooseA" ColumnName="ChooseA" />
+                <ScalarProperty Name="ChooseB" ColumnName="ChooseB" />
+                <ScalarProperty Name="ChooseC" ColumnName="ChooseC" />
+                <ScalarProperty Name="ChooseD" ColumnName="ChooseD" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prize_JK">
+            <EntityTypeMapping TypeName="JK_ExamModel.Prize_JK">
+              <MappingFragment StoreEntitySet="Prize_JK">
+                <ScalarProperty Name="TimeStamps" ColumnName="TimeStamps" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OpenID" ColumnName="OpenID" />
+                <ScalarProperty Name="WeChatName" ColumnName="WeChatName" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="ChouTime" ColumnName="ChouTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_JK">
+            <EntityTypeMapping TypeName="JK_ExamModel.User_JK">
+              <MappingFragment StoreEntitySet="User_JK">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OpenID" ColumnName="OpenID" />
+                <ScalarProperty Name="HeadImg" ColumnName="HeadImg" />
+                <ScalarProperty Name="WeChatName" ColumnName="WeChatName" />
+                <ScalarProperty Name="IsChou" ColumnName="IsChou" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
