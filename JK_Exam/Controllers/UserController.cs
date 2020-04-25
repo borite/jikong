@@ -164,13 +164,13 @@ namespace JK_Exam.Controllers
                 {
                     Random r1 = new Random();//定义随机器
 
-                    double[] moneyPool = { 0.1, 0.5, 0.8, 1, 1.8, 1.5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                    double[] moneyPool = { 1.00,1.66,1.88,2.00,2.66,2.88,3.00 };
                     int jiangIndex = r1.Next(1, moneyPool.Length); //产生1..100之间的随机数
 
                     var jiang = moneyPool[jiangIndex];
 
-                    if (jiang != 0) //不是0后台标记为抽过奖（中奖），用户状态修改，中奖记录加数据
-                    {
+                    //if (jiang != 0) //不是0后台标记为抽过奖（中奖），用户状态修改，中奖记录加数据
+                    //{
                         CC.IsChou = true;
                         //抽奖表增加记录
                         Prize_JK res = new Prize_JK();
@@ -182,11 +182,11 @@ namespace JK_Exam.Controllers
                         jk.Prize_JK.Add(res);
                         jk.SaveChanges();
                         return Content(HttpStatusCode.OK, code.SussessV("200", "抽奖成功", jiang));
-                    }
-                    else //抽奖没有中奖
-                    {
-                        return Content(HttpStatusCode.OK, code.SussessV("200", "抽奖成功，未中奖", jiang));
-                    }
+                   // }
+                    //else //抽奖没有中奖
+                    //{
+                    //    return Content(HttpStatusCode.OK, code.SussessV("200", "抽奖成功，未中奖", jiang));
+                    //}
                 }
                 catch (Exception)
                 {

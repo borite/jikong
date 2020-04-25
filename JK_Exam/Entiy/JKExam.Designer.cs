@@ -1,4 +1,4 @@
-﻿// 为模型“F:\刘赫阳的项目\原本唐\疾控答题\疾控答程序\JK_Exam\JK_Exam\Entiy\JKExam.edmx”启用了 T4 代码生成。
+﻿// 为模型“F:\项目\疾控答题\jikong\JK_Exam\Entiy\JKExam.edmx”启用了 T4 代码生成。
 // 要启用旧代码生成功能，请将“代码生成策略”设计器属性的值
 // 更改为“旧的 ObjectContext”。当在设计器中打开该模型时，此属性会出现在
 // “属性”窗口中。

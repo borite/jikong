@@ -15,7 +15,9 @@
           <Property Name="ChooseB" Type="nvarchar" MaxLength="150" />
           <Property Name="ChooseC" Type="nvarchar" MaxLength="150" />
           <Property Name="ChooseD" Type="nvarchar" MaxLength="150" />
+          <Property Name="ChooseE" Type="nvarchar" MaxLength="150" />
           <Property Name="Answer" Type="nvarchar" MaxLength="500" />
+          <Property Name="QuestionType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Prize_JK">
           <Key>
@@ -27,7 +29,7 @@
           <Property Name="WeChatName" Type="nvarchar" MaxLength="150" />
           <Property Name="Money" Type="money" Nullable="false" />
           <Property Name="ChouTime" Type="datetime" Nullable="false" />
-          <Property Name="TimeStamps" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="TimeStamps" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="User_JK">
           <Key>
@@ -75,6 +77,8 @@
           <Property Name="ChooseC" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="ChooseD" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Answer" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ChooseE" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionType" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Prize_JK">
           <Key>
@@ -87,7 +91,7 @@
           <Property Name="Money" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="ChouTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="User_JK" Relationship="Self.FK_Prize_JK_Prize_JK" FromRole="Prize_JK" ToRole="User_JK" />
-          <Property Name="TimeStamps" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" />
+          <Property Name="TimeStamps" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" ConcurrencyMode="Fixed" Nullable="false" />
         </EntityType>
         <EntityType Name="User_JK">
           <Key>
@@ -130,6 +134,8 @@
           <EntitySetMapping Name="Exam_JK">
             <EntityTypeMapping TypeName="JK_ExamModel.Exam_JK">
               <MappingFragment StoreEntitySet="Exam_JK">
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="ChooseE" ColumnName="ChooseE" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="ChooseA" ColumnName="ChooseA" />
