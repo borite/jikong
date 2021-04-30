@@ -108,9 +108,6 @@ namespace JK_Exam.Controllers
                     }
 
 
-
-
-
                 }
 
 
@@ -164,8 +161,32 @@ namespace JK_Exam.Controllers
                 {
                     Random r1 = new Random();//定义随机器
 
-                    double[] moneyPool = { 0.1, 0.5, 0.8, 1, 1.8, 1.5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-                    int jiangIndex = r1.Next(1, moneyPool.Length); //产生1..100之间的随机数
+                    int level1count = jk.Prize_JK.AsNoTracking().Where(j => j.Money == 5).Count();
+                    int level2count = jk.Prize_JK.AsNoTracking().Where(j => j.Money == 3).Count();
+                    int level3count = jk.Prize_JK.AsNoTracking().Where(j => j.Money == 1).Count();
+
+                    //初始一二三等奖都有
+                    double[] moneyPool = {3, 3, 5, 1,1 };
+
+                  
+                    if (level1count == 500)
+                    {
+                        moneyPool=new double[] { 3, 3, 1,1 };
+                    }
+
+                    if (level2count == 1000 && level1count==500)
+                    {
+                        moneyPool= new double[] { 1, 1, 1,1 };
+                    }
+
+                    if (level2count == 1000 && level1count == 500 && level3count==1500)
+                    {
+                        moneyPool = new double[] { 0, 0, 0,0 };
+                    }
+
+ 
+
+                    int jiangIndex = r1.Next(0, moneyPool.Length); //产生1..100之间的随机数
 
                     var jiang = moneyPool[jiangIndex];
 
@@ -230,16 +251,8 @@ namespace JK_Exam.Controllers
         public IHttpActionResult GetExam(int ExamNum) 
         {
 
-            var data = jk.Exam_JK.OrderBy(a => Guid.NewGuid()).Take(ExamNum);
+            var data = jk.Exam_JK.AsNoTracking().Where(s=>s.Belong=="hushituanwei").OrderBy(a => Guid.NewGuid()).Take(ExamNum);
             return Content(HttpStatusCode.OK, code.SussessV("200", "返回题目成功", data));
-
-
-
-
-
-
-
-
 
         }
 

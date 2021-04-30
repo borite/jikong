@@ -21,5 +21,8 @@ namespace JK_Exam.Entiy
         public string ChooseC { get; set; }
         public string ChooseD { get; set; }
         public string Answer { get; set; }
+        public string ChooseE { get; set; }
+        public int QuestionType { get; set; }
+        public string Belong { get; set; }
     }
 }
